@@ -1,0 +1,38 @@
+.export-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-export {
+  background: var(--success-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.btn-export:hover {
+  background: #059669;
+}
+
+.btn-csv {
+  background: #10b981;
+}
+
+.btn-json {
+  background: #3b82f6;
+}
+
+.btn-json:hover {
+  background: #2563eb;
+}
+
+@media (max-width: 640px) {
+  .export-buttons {
+    width: 100%;
+  }
+  
+  .btn-export {
+    flex: 1;
+  }
+}

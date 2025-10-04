@@ -1,182 +1,168 @@
-# Weather Prediction Flask App
+# Will It Rain? 🌤️
 
-A beautiful and responsive Flask web application that provides current weather data and 5-day forecasts for any city using the OpenWeatherMap API.
+A React-based weather conditions planner that helps you assess the likelihood of adverse weather conditions for outdoor events using historical weather data.
 
 ## Features
 
-- 🌡️ Current weather information (temperature, humidity, wind speed, pressure)
-- 📅 5-day weather forecast
-- 🛰️ NASA Satellite imagery of searched location
-- 🌍 EPIC: Earth Polychromatic Imaging Camera views
-- � Astronomy Picture of the Day (APOD)
-- �🎨 Beautiful and responsive UI with gradient design
-- 🔍 Search any city worldwide
-- 📱 Mobile-friendly interface
-- ⚡ Real-time weather data from OpenWeatherMap API
-- 🚀 NASA API integration for Earth observation data
-
-## Prerequisites
-
-- Python 3.7 or higher
-- OpenWeatherMap API key (free)
-- NASA API key (free - or use DEMO_KEY for testing)
+- 🗺️ **Interactive Map Selection** - Click on the map or search for locations
+- 📅 **Date & Time Planning** - Select your event date and historical range
+- 🌡️ **Multiple Weather Parameters** - Temperature, precipitation, wind, humidity, cloud cover, and air quality
+- 📊 **Visual Analytics** - Interactive charts showing historical trends and probabilities
+- 📈 **Climate Trends** - See how weather patterns have changed over time
+- 💾 **Data Export** - Download results in CSV or JSON format
+- 📱 **Responsive Design** - Works on desktop, tablet, and mobile devices
 
 ## Installation
 
-1. **Clone or navigate to the project directory**
-
-2. **Create a virtual environment (recommended)**
+1. **Clone the repository:**
    ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   git clone https://github.com/MathewsVinoy/will-it-rain.git
+   cd will-it-rain
    ```
 
-3. **Install dependencies**
+2. **Install dependencies:**
    ```bash
-   pip install -r requirements.txt
+   npm install
    ```
 
-4. **Get your API keys**
-   
-   **OpenWeatherMap API:**
-   - Visit [OpenWeatherMap](https://openweathermap.org/api)
-   - Sign up for a free account
-   - Generate an API key from your account dashboard
-   
-   **NASA API:**
-   - Visit [NASA API Portal](https://api.nasa.gov/)
-   - Sign up for a free API key
-   - Or use `DEMO_KEY` for testing (limited to 30 requests per hour)
-
-5. **Configure your API keys**
-   
-   Create a `.env` file in the project root:
+3. **Start the development server:**
    ```bash
-   cp .env.example .env
-   ```
-   
-   Then edit `.env` and add your API keys:
-   ```
-   WEATHER_API_KEY=your_weather_api_key_here
-   NASA_API_KEY=your_nasa_api_key_here
+   npm run dev
    ```
 
-## Running the Application
-
-1. **Activate your virtual environment** (if not already activated)
-   ```bash
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-2. **Run the Flask app**
-   ```bash
-   python app.py
-   ```
-
-3. **Open your browser**
-   
-   Navigate to: `http://localhost:5000`
+4. **Open your browser:**
+   Navigate to `http://localhost:3000`
 
 ## Usage
 
-1. Enter a city name in the search box
-2. Click "Search" or press Enter
-3. View current weather details
-4. Click "View 5-Day Forecast" to see the forecast
-5. Explore NASA satellite data:
-   - **Load Satellite Image**: View Earth satellite imagery of the location
-   - **Load EPIC Image**: See Earth from NASA's EPIC camera in space
-   - **Load APOD**: Discover today's Astronomy Picture of the Day
-6. Click "Hide Forecast" to collapse the forecast section
+### 1. Select a Location
+- Use the search bar to find a city (try: Seattle, Miami, Denver, Boston, Phoenix)
+- Or click directly on the map to select any location
+
+### 2. Choose Your Event Date
+- Pick the date of your planned outdoor event
+- Select how many years of historical data to analyze (5-30 years)
+
+### 3. Configure Parameters
+- Select which weather conditions you want to analyze:
+  - Temperature (hot/cold thresholds)
+  - Precipitation (rain probability)
+  - Wind speed
+  - Humidity
+  - Cloud cover
+  - Air quality
+
+### 4. Set Thresholds
+- Define what "very hot", "very cold", "very wet", and "very windy" means for you
+- Default thresholds:
+  - Very Hot: 90°F
+  - Very Cold: 32°F
+  - Heavy Rain: 0.5 inches
+  - Very Windy: 20 mph
+
+### 5. Analyze
+- Click "Analyze Weather" to see historical patterns and probabilities
+- View summary cards showing percentage likelihood of each condition
+- Explore interactive charts showing trends over time
+- Export your results as CSV or JSON files
+
+## Technology Stack
+
+- **React 18** - UI framework
+- **Vite** - Build tool and dev server
+- **Leaflet & React-Leaflet** - Interactive maps
+- **Chart.js & React-Chartjs-2** - Data visualization
+- **CSS3** - Styling with custom properties
+
+## Data Sources
+
+This application is designed to work with NASA Earth observation data:
+
+- **POWER (Prediction Of Worldwide Energy Resources)** - Historical weather data
+- **Giovanni** - Climate data analysis
+- **Earthdata Search** - Satellite observations
+- **MERRA-2** - Modern-Era Retrospective analysis
+
+### Integrating Real NASA APIs
+
+To connect to real NASA data sources, update the `generateMockWeatherData` function in `src/App.jsx`:
+
+```javascript
+// Replace mock data with real API calls
+const response = await fetch(
+  `https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS10M&community=RE&longitude=${lng}&latitude=${lat}&start=${startDate}&end=${endDate}&format=JSON`
+);
+```
 
 ## Project Structure
 
 ```
-weather-app/
-├── app.py                 # Main Flask application
-├── requirements.txt       # Python dependencies
-├── .env.example          # Environment variable template
-├── .gitignore            # Git ignore file
-├── README.md             # This file
-├── templates/
-│   └── index.html        # HTML template
-└── static/
-    ├── style.css         # CSS styles
-    └── script.js         # JavaScript functionality
+will-it-rain/
+├── src/
+│   ├── components/
+│   │   ├── Header.jsx
+│   │   ├── ControlPanel.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── MapView.jsx
+│   │   ├── Results.jsx
+│   │   ├── SummaryCards.jsx
+│   │   ├── ChartsGrid.jsx
+│   │   ├── ExportButtons.jsx
+│   │   └── LoadingOverlay.jsx
+│   ├── App.jsx
+│   ├── main.jsx
+│   ├── App.css
+│   └── index.css
+├── index.html
+├── package.json
+├── vite.config.js
+└── README.md
 ```
 
-## API Endpoints
+## Available Scripts
 
-### Weather Endpoints
-- `GET /` - Main page
-- `POST /weather` - Get current weather for a city
-- `POST /forecast` - Get 5-day forecast for a city
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-### NASA Endpoints
-- `POST /nasa/earth-image` - Get satellite imagery for coordinates
-- `GET /nasa/apod` - Get Astronomy Picture of the Day
-- `GET /nasa/epic` - Get EPIC Earth images from space
+## Features Roadmap
 
-## Technologies Used
+- [ ] Integration with real NASA POWER API
+- [ ] User accounts and saved locations
+- [ ] Multi-location comparison
+- [ ] Weather alerts and notifications
+- [ ] Historical event correlation
+- [ ] Mobile app version
+- [ ] Advanced statistical analysis
+- [ ] Social sharing features
 
-- **Backend**: Flask (Python)
-- **Frontend**: HTML, CSS, JavaScript
-- **APIs**: 
-  - OpenWeatherMap API (Weather data)
-  - NASA API (Satellite imagery, EPIC, APOD)
-- **Libraries**: 
-  - Requests (HTTP client)
-  - Geopy (Geocoding)
+## Contributing
 
-## Features Explained
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-### Current Weather
-- Temperature (Celsius)
-- Feels like temperature
-- Weather description with icon
-- Humidity percentage
-- Wind speed (m/s)
-- Atmospheric pressure (hPa)
-
-### 5-Day Forecast
-- Daily weather predictions
-- Temperature
-- Weather conditions
-- Humidity levels
-- Weather icons
-
-### NASA Data Integration
-- **Earth Satellite Imagery**: Real satellite photos of searched locations
-- **EPIC Camera**: Full Earth images from the DSCOVR satellite
-- **APOD**: Daily astronomy pictures with detailed explanations
-- High-resolution space imagery
-- Cloud coverage data
-
-## Troubleshooting
-
-**API Key Issues**
-- Make sure your API key is correctly set in the `.env` file
-- Note that new API keys may take a few minutes to activate
-- Verify your API key at [OpenWeatherMap](https://home.openweathermap.org/api_keys)
-
-**City Not Found**
-- Check spelling of the city name
-- Try adding country code (e.g., "London,UK")
-- Use city name in English
-
-**Connection Errors**
-- Check your internet connection
-- Verify that you can access openweathermap.org
-- Check if your firewall is blocking the connection
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
-This project is open source and available for educational purposes.
+This project is open source and available under the [MIT License](LICENSE).
 
-## Credits
+## Acknowledgments
 
-- Weather data provided by [OpenWeatherMap](https://openweathermap.org/)
-- Satellite imagery and space data from [NASA API](https://api.nasa.gov/)
-- Icons from OpenWeatherMap
-- EPIC camera images from NOAA's DSCOVR satellite
-# will-it-rain
+- NASA for providing free access to Earth observation data
+- OpenStreetMap contributors for map tiles
+- The React and open-source communities
+
+## Contact
+
+**Mathews Vinoy**
+- GitHub: [@MathewsVinoy](https://github.com/MathewsVinoy)
+- Repository: [will-it-rain](https://github.com/MathewsVinoy/will-it-rain)
+
+---
+
+Built with ❤️ for outdoor enthusiasts and event planners worldwide.

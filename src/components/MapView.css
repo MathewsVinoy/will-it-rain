@@ -1,0 +1,28 @@
+.map-container {
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  height: 500px;
+}
+
+.marker-popup {
+  text-align: center;
+}
+
+.marker-popup strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.marker-popup p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .map-container {
+    height: 300px;
+  }
+}

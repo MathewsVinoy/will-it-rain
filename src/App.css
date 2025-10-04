@@ -1,0 +1,36 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  flex: 1;
+  max-width: 1920px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .main-content {
+    grid-template-columns: 320px 1fr;
+  }
+}
+
+@media (max-width: 968px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .main-content {
+    padding: 1rem;
+    gap: 1rem;
+  }
+}
