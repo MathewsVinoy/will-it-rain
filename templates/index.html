@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Prediction App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌤️ Weather Prediction App</h1>
+            <p>Get current weather and 5-day forecast for any city</p>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="cityInput" placeholder="Enter city name..." />
+            <button id="searchBtn" onclick="getWeather()">Search</button>
+        </div>
+
+        <div id="loading" class="loading hidden">Loading...</div>
+        <div id="error" class="error hidden"></div>
+
+        <!-- Current Weather Section -->
+        <div id="weatherResult" class="weather-result hidden">
+            <div class="current-weather">
+                <h2 id="cityName"></h2>
+                <div class="weather-main">
+                    <img id="weatherIcon" src="" alt="Weather icon" />
+                    <div class="temperature">
+                        <span id="temp"></span>
+                        <span class="unit">°C</span>
+                    </div>
+                </div>
+                <p id="description"></p>
+                <div class="weather-details">
+                    <div class="detail">
+                        <span class="label">Feels Like:</span>
+                        <span id="feelsLike"></span>°C
+                    </div>
+                    <div class="detail">
+                        <span class="label">Humidity:</span>
+                        <span id="humidity"></span>%
+                    </div>
+                    <div class="detail">
+                        <span class="label">Wind Speed:</span>
+                        <span id="windSpeed"></span> m/s
+                    </div>
+                    <div class="detail">
+                        <span class="label">Pressure:</span>
+                        <span id="pressure"></span> hPa
+                    </div>
+                </div>
+                <button id="forecastBtn" onclick="getForecast()">View 5-Day Forecast</button>
+            </div>
+        </div>
+
+        <!-- Forecast Section -->
+        <div id="forecastResult" class="forecast-result hidden">
+            <h2>5-Day Forecast</h2>
+            <div id="forecastCards" class="forecast-cards"></div>
+            <button onclick="hideForecast()">Hide Forecast</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
