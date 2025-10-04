@@ -3,90 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Prediction App</title>
+    <title>Eco-Planner | Historical Weather Analysis</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🌤️ Weather Prediction App</h1>
-            <p>Get current weather and 5-day forecast for any city</p>
+            <h1>� Eco-Planner</h1>
+            <p>Historical Weather Analysis & Event Planning Assistant</p>
+            <p class="subtitle">Powered by NASA Earth Observation Data (30+ Years)</p>
         </header>
 
-        <div class="search-box">
-            <input type="text" id="cityInput" placeholder="Enter city name..." />
-            <button id="searchBtn" onclick="getWeather()">Search</button>
+        <!-- Input Section -->
+        <div class="input-panel">
+            <div class="input-section">
+                <h3>📍 1. Select Location</h3>
+                <div class="location-input">
+                    <input type="text" id="locationInput" placeholder="Enter city or address..." />
+                    <button id="searchLocationBtn" onclick="searchLocation()">Find Location</button>
+                </div>
+                <div id="map" class="map-container"></div>
+                <p class="coord-display" id="coordDisplay">Click on map or search for a location</p>
+            </div>
+
+            <div class="input-section">
+                <h3>📅 2. Choose Date</h3>
+                <input type="date" id="dateInput" class="date-picker" />
+            </div>
+
+            <div class="input-section">
+                <h3>🎚️ 3. Set Custom Thresholds</h3>
+                <div class="threshold-grid">
+                    <div class="threshold-item">
+                        <label for="hotThreshold">🔥 Very Hot (≥ °F):</label>
+                        <input type="range" id="hotThreshold" min="70" max="120" value="90" oninput="updateThresholdValue('hot', this.value)">
+                        <span id="hotValue" class="threshold-value">90°F</span>
+                    </div>
+                    
+                    <div class="threshold-item">
+                        <label for="wetThreshold">💧 Very Wet (≥ inches):</label>
+                        <input type="range" id="wetThreshold" min="0" max="3" step="0.1" value="0.5" oninput="updateThresholdValue('wet', this.value)">
+                        <span id="wetValue" class="threshold-value">0.5 in</span>
+                    </div>
+                    
+                    <div class="threshold-item">
+                        <label for="windyThreshold">💨 Very Windy (≥ mph):</label>
+                        <input type="range" id="windyThreshold" min="5" max="40" value="15" oninput="updateThresholdValue('windy', this.value)">
+                        <span id="windyValue" class="threshold-value">15 mph</span>
+                    </div>
+                    
+                    <div class="threshold-item">
+                        <label for="coldThreshold">❄️ Very Cold (≤ °F):</label>
+                        <input type="range" id="coldThreshold" min="0" max="60" value="32" oninput="updateThresholdValue('cold', this.value)">
+                        <span id="coldValue" class="threshold-value">32°F</span>
+                    </div>
+                    
+                    <div class="threshold-item">
+                        <label for="dryThreshold">🏜️ Very Dry (≤ inches):</label>
+                        <input type="range" id="dryThreshold" min="0" max="0.2" step="0.01" value="0.01" oninput="updateThresholdValue('dry', this.value)">
+                        <span id="dryValue" class="threshold-value">0.01 in</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="analyzeBtn" class="analyze-btn" onclick="analyzeWeather()">
+                <span>🔍 Analyze Historical Data</span>
+            </button>
         </div>
 
-        <div id="loading" class="loading hidden">Loading...</div>
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Analyzing 30+ years of NASA satellite data...</p>
+        </div>
         <div id="error" class="error hidden"></div>
 
-        <!-- Current Weather Section -->
-        <div id="weatherResult" class="weather-result hidden">
-            <div class="current-weather">
-                <h2 id="cityName"></h2>
-                <div class="weather-main">
-                    <img id="weatherIcon" src="" alt="Weather icon" />
-                    <div class="temperature">
-                        <span id="temp"></span>
-                        <span class="unit">°C</span>
-                    </div>
-                </div>
-                <p id="description"></p>
-                <div class="weather-details">
-                    <div class="detail">
-                        <span class="label">Feels Like:</span>
-                        <span id="feelsLike"></span>°C
-                    </div>
-                    <div class="detail">
-                        <span class="label">Humidity:</span>
-                        <span id="humidity"></span>%
-                    </div>
-                    <div class="detail">
-                        <span class="label">Wind Speed:</span>
-                        <span id="windSpeed"></span> m/s
-                    </div>
-                    <div class="detail">
-                        <span class="label">Pressure:</span>
-                        <span id="pressure"></span> hPa
-                    </div>
-                </div>
-                <button id="forecastBtn" onclick="getForecast()">View 5-Day Forecast</button>
-            </div>
-        </div>
-
-        <!-- Forecast Section -->
-        <div id="forecastResult" class="forecast-result hidden">
-            <h2>5-Day Forecast</h2>
-            <div id="forecastCards" class="forecast-cards"></div>
-            <button onclick="hideForecast()">Hide Forecast</button>
-        </div>
-
-        <!-- NASA Data Section -->
-        <div id="nasaSection" class="nasa-section hidden">
-            <h2>🛰️ NASA Satellite Data</h2>
+        <!-- Results Section -->
+        <div id="resultsPanel" class="results-panel hidden">
+            <h2>📊 Historical Weather Analysis Results</h2>
+            <p class="result-info" id="resultInfo"></p>
             
-            <!-- Earth Imagery -->
-            <div class="nasa-card" id="earthImageCard">
-                <h3>Earth Satellite View</h3>
-                <div id="earthImageContent">
-                    <button id="loadEarthBtn" onclick="loadEarthImage()">Load Satellite Image</button>
+            <div class="likelihood-grid">
+                <div class="likelihood-card" data-category="hot">
+                    <div class="likelihood-icon">🔥</div>
+                    <h3>Very Hot</h3>
+                    <div class="gauge-container">
+                        <div class="gauge" id="gaugeHot"></div>
+                    </div>
+                    <div class="percentage" id="percentHot">0%</div>
+                    <p class="likelihood-label">Likelihood</p>
+                </div>
+                
+                <div class="likelihood-card" data-category="wet">
+                    <div class="likelihood-icon">💧</div>
+                    <h3>Very Wet</h3>
+                    <div class="gauge-container">
+                        <div class="gauge" id="gaugeWet"></div>
+                    </div>
+                    <div class="percentage" id="percentWet">0%</div>
+                    <p class="likelihood-label">Likelihood</p>
+                </div>
+                
+                <div class="likelihood-card" data-category="windy">
+                    <div class="likelihood-icon">💨</div>
+                    <h3>Very Windy</h3>
+                    <div class="gauge-container">
+                        <div class="gauge" id="gaugeWindy"></div>
+                    </div>
+                    <div class="percentage" id="percentWindy">0%</div>
+                    <p class="likelihood-label">Likelihood</p>
+                </div>
+                
+                <div class="likelihood-card" data-category="cold">
+                    <div class="likelihood-icon">❄️</div>
+                    <h3>Very Cold</h3>
+                    <div class="gauge-container">
+                        <div class="gauge" id="gaugeCold"></div>
+                    </div>
+                    <div class="percentage" id="percentCold">0%</div>
+                    <p class="likelihood-label">Likelihood</p>
+                </div>
+                
+                <div class="likelihood-card" data-category="dry">
+                    <div class="likelihood-icon">🏜️</div>
+                    <h3>Very Dry</h3>
+                    <div class="gauge-container">
+                        <div class="gauge" id="gaugeDry"></div>
+                    </div>
+                    <div class="percentage" id="percentDry">0%</div>
+                    <p class="likelihood-label">Likelihood</p>
                 </div>
             </div>
 
-            <!-- EPIC Earth Images -->
-            <div class="nasa-card" id="epicCard">
-                <h3>EPIC: Earth from Space</h3>
-                <div id="epicContent">
-                    <button id="loadEpicBtn" onclick="loadEpicImage()">Load EPIC Image</button>
-                </div>
+            <!-- Statistics Summary -->
+            <div class="stats-section">
+                <h3>📈 Historical Statistics</h3>
+                <div id="statsGrid" class="stats-grid"></div>
             </div>
 
-            <!-- Astronomy Picture of the Day -->
-            <div class="nasa-card" id="apodCard">
-                <h3>Astronomy Picture of the Day</h3>
-                <div id="apodContent">
-                    <button id="loadApodBtn" onclick="loadApod()">Load APOD</button>
+            <!-- Export Options -->
+            <div class="export-section">
+                <h3>💾 Export Data</h3>
+                <div class="export-buttons">
+                    <button onclick="exportData('json')" class="export-btn">
+                        <span>📄 Download JSON</span>
+                    </button>
+                    <button onclick="exportData('csv')" class="export-btn">
+                        <span>📊 Download CSV</span>
+                    </button>
                 </div>
             </div>
         </div>
