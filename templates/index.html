@@ -61,6 +61,35 @@
             <div id="forecastCards" class="forecast-cards"></div>
             <button onclick="hideForecast()">Hide Forecast</button>
         </div>
+
+        <!-- NASA Data Section -->
+        <div id="nasaSection" class="nasa-section hidden">
+            <h2>🛰️ NASA Satellite Data</h2>
+            
+            <!-- Earth Imagery -->
+            <div class="nasa-card" id="earthImageCard">
+                <h3>Earth Satellite View</h3>
+                <div id="earthImageContent">
+                    <button id="loadEarthBtn" onclick="loadEarthImage()">Load Satellite Image</button>
+                </div>
+            </div>
+
+            <!-- EPIC Earth Images -->
+            <div class="nasa-card" id="epicCard">
+                <h3>EPIC: Earth from Space</h3>
+                <div id="epicContent">
+                    <button id="loadEpicBtn" onclick="loadEpicImage()">Load EPIC Image</button>
+                </div>
+            </div>
+
+            <!-- Astronomy Picture of the Day -->
+            <div class="nasa-card" id="apodCard">
+                <h3>Astronomy Picture of the Day</h3>
+                <div id="apodContent">
+                    <button id="loadApodBtn" onclick="loadApod()">Load APOD</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>

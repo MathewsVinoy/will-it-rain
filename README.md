@@ -6,15 +6,20 @@ A beautiful and responsive Flask web application that provides current weather d
 
 - 🌡️ Current weather information (temperature, humidity, wind speed, pressure)
 - 📅 5-day weather forecast
-- 🎨 Beautiful and responsive UI with gradient design
+- 🛰️ NASA Satellite imagery of searched location
+- 🌍 EPIC: Earth Polychromatic Imaging Camera views
+- � Astronomy Picture of the Day (APOD)
+- �🎨 Beautiful and responsive UI with gradient design
 - 🔍 Search any city worldwide
 - 📱 Mobile-friendly interface
 - ⚡ Real-time weather data from OpenWeatherMap API
+- 🚀 NASA API integration for Earth observation data
 
 ## Prerequisites
 
 - Python 3.7 or higher
 - OpenWeatherMap API key (free)
+- NASA API key (free - or use DEMO_KEY for testing)
 
 ## Installation
 
@@ -31,21 +36,29 @@ A beautiful and responsive Flask web application that provides current weather d
    pip install -r requirements.txt
    ```
 
-4. **Get your OpenWeatherMap API key**
+4. **Get your API keys**
+   
+   **OpenWeatherMap API:**
    - Visit [OpenWeatherMap](https://openweathermap.org/api)
    - Sign up for a free account
    - Generate an API key from your account dashboard
+   
+   **NASA API:**
+   - Visit [NASA API Portal](https://api.nasa.gov/)
+   - Sign up for a free API key
+   - Or use `DEMO_KEY` for testing (limited to 30 requests per hour)
 
-5. **Configure your API key**
+5. **Configure your API keys**
    
    Create a `.env` file in the project root:
    ```bash
    cp .env.example .env
    ```
    
-   Then edit `.env` and add your API key:
+   Then edit `.env` and add your API keys:
    ```
-   WEATHER_API_KEY=your_actual_api_key_here
+   WEATHER_API_KEY=your_weather_api_key_here
+   NASA_API_KEY=your_nasa_api_key_here
    ```
 
 ## Running the Application
@@ -70,7 +83,11 @@ A beautiful and responsive Flask web application that provides current weather d
 2. Click "Search" or press Enter
 3. View current weather details
 4. Click "View 5-Day Forecast" to see the forecast
-5. Click "Hide Forecast" to collapse the forecast section
+5. Explore NASA satellite data:
+   - **Load Satellite Image**: View Earth satellite imagery of the location
+   - **Load EPIC Image**: See Earth from NASA's EPIC camera in space
+   - **Load APOD**: Discover today's Astronomy Picture of the Day
+6. Click "Hide Forecast" to collapse the forecast section
 
 ## Project Structure
 
@@ -90,16 +107,26 @@ weather-app/
 
 ## API Endpoints
 
+### Weather Endpoints
 - `GET /` - Main page
 - `POST /weather` - Get current weather for a city
 - `POST /forecast` - Get 5-day forecast for a city
+
+### NASA Endpoints
+- `POST /nasa/earth-image` - Get satellite imagery for coordinates
+- `GET /nasa/apod` - Get Astronomy Picture of the Day
+- `GET /nasa/epic` - Get EPIC Earth images from space
 
 ## Technologies Used
 
 - **Backend**: Flask (Python)
 - **Frontend**: HTML, CSS, JavaScript
-- **API**: OpenWeatherMap API
-- **HTTP Client**: Requests library
+- **APIs**: 
+  - OpenWeatherMap API (Weather data)
+  - NASA API (Satellite imagery, EPIC, APOD)
+- **Libraries**: 
+  - Requests (HTTP client)
+  - Geopy (Geocoding)
 
 ## Features Explained
 
@@ -117,6 +144,13 @@ weather-app/
 - Weather conditions
 - Humidity levels
 - Weather icons
+
+### NASA Data Integration
+- **Earth Satellite Imagery**: Real satellite photos of searched locations
+- **EPIC Camera**: Full Earth images from the DSCOVR satellite
+- **APOD**: Daily astronomy pictures with detailed explanations
+- High-resolution space imagery
+- Cloud coverage data
 
 ## Troubleshooting
 
@@ -142,5 +176,7 @@ This project is open source and available for educational purposes.
 ## Credits
 
 - Weather data provided by [OpenWeatherMap](https://openweathermap.org/)
+- Satellite imagery and space data from [NASA API](https://api.nasa.gov/)
 - Icons from OpenWeatherMap
+- EPIC camera images from NOAA's DSCOVR satellite
 # will-it-rain
