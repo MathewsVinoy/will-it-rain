@@ -67,7 +67,7 @@ function ChartsGrid({ weatherData, parameters, temperatureUnit = 'F' }) {
 
   // Temperature Probability Distribution
   const tempProbData = {
-    labels: ['Very Hot', 'Comfortable', 'Very Cold'],
+    labels: ['🥵 Too Hot', '😊 Comfortable', '🥶 Too Cold'],
     datasets: [
       {
         label: 'Probability (%)',
@@ -102,7 +102,7 @@ function ChartsGrid({ weatherData, parameters, temperatureUnit = 'F' }) {
 
   // Precipitation Probability
   const precipProbData = {
-    labels: ['Heavy Rain', 'Light Rain', 'No Precipitation'],
+    labels: ['🌧️ Heavy Rain', '🌦️ Light Rain', '☀️ No Rain'],
     datasets: [
       {
         data: [
@@ -137,7 +137,7 @@ function ChartsGrid({ weatherData, parameters, temperatureUnit = 'F' }) {
 
   // Wind Probability
   const windProbData = {
-    labels: ['Very Windy', 'Moderate', 'Calm'],
+    labels: ['🌀 Strong Winds', '🌬️ Moderate', '😌 Calm'],
     datasets: [
       {
         label: 'Probability (%)',
@@ -161,7 +161,7 @@ function ChartsGrid({ weatherData, parameters, temperatureUnit = 'F' }) {
       {parameters.temperature && (
         <>
           <div className="chart-container">
-            <h3>📈 Temperature Trend</h3>
+            <h3>📈 Temperature is trending up over the years — hotter each time</h3>
             <div className="chart-wrapper">
               <Line data={tempHistoricalData} options={chartOptions} />
             </div>
@@ -172,7 +172,7 @@ function ChartsGrid({ weatherData, parameters, temperatureUnit = 'F' }) {
           </div>
 
           <div className="chart-container">
-            <h3>🌡️ Temperature Probability</h3>
+            <h3>🌡️ How often was it too hot, comfortable, or too cold?</h3>
             <div className="chart-wrapper">
               <Bar data={tempProbData} options={chartOptions} />
             </div>
@@ -183,7 +183,7 @@ function ChartsGrid({ weatherData, parameters, temperatureUnit = 'F' }) {
       {parameters.precipitation && (
         <>
           <div className="chart-container">
-            <h3>📊 Precipitation History</h3>
+            <h3>📊 Rain has occurred {Math.round(weatherData.precipitation.probabilities.heavyRain + weatherData.precipitation.probabilities.lightRain)} out of 10 times on this date</h3>
             <div className="chart-wrapper">
               <Bar data={precipHistoricalData} options={chartOptions} />
             </div>
@@ -194,7 +194,7 @@ function ChartsGrid({ weatherData, parameters, temperatureUnit = 'F' }) {
           </div>
 
           <div className="chart-container">
-            <h3>💧 Precipitation Likelihood</h3>
+            <h3>💧 What kind of rain can you expect?</h3>
             <div className="chart-wrapper">
               <Pie data={precipProbData} options={chartOptions} />
             </div>
@@ -205,7 +205,7 @@ function ChartsGrid({ weatherData, parameters, temperatureUnit = 'F' }) {
       {parameters.wind && (
         <>
           <div className="chart-container">
-            <h3>💨 Wind Speed Trend</h3>
+            <h3>💨 Wind speeds have dropped slightly in recent years</h3>
             <div className="chart-wrapper">
               <Line data={windHistoricalData} options={chartOptions} />
             </div>
@@ -216,7 +216,7 @@ function ChartsGrid({ weatherData, parameters, temperatureUnit = 'F' }) {
           </div>
 
           <div className="chart-container">
-            <h3>🌬️ Wind Probability</h3>
+            <h3>🌬️ How windy will it be?</h3>
             <div className="chart-wrapper">
               <Bar data={windProbData} options={chartOptions} />
             </div>

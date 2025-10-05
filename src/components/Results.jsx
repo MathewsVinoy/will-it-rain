@@ -2,6 +2,7 @@ import { CloudSun, TrendingUp, Info, BookOpen, Lightbulb } from 'lucide-react'
 import SummaryCards from './SummaryCards'
 import ChartsGrid from './ChartsGrid'
 import ExportButtons from './ExportButtons'
+import ComfortScore from './ComfortScore'
 import './Results.css'
 
 function Results({ weatherData, parameters, eventDate, selectedLocation, temperatureUnit = 'F' }) {
@@ -53,8 +54,8 @@ function Results({ weatherData, parameters, eventDate, selectedLocation, tempera
           <h3>Understanding Your Weather Report</h3>
         </div>
         <p className="info-text">
-          This analysis shows the probability of different weather conditions based on <strong>{weatherData.dateRange} years</strong> of historical data 
-          for the same date and location. The percentages below represent how often specific weather conditions occurred in the past.
+          This analysis shows what the weather was like on this date in the past, based on <strong>{weatherData.dateRange} years</strong> of historical data 
+          for the same date and location. The numbers below show how often different weather conditions happened, so you can plan accordingly.
         </p>
       </div>
 
@@ -64,11 +65,16 @@ function Results({ weatherData, parameters, eventDate, selectedLocation, tempera
           <span className="section-icon"><Info size={20} /></span>
           <div>
             <h4>What Do These Numbers Mean?</h4>
-            <p>Each percentage shows the likelihood of experiencing that weather condition. For example, 
-            <strong> 30% "Very Hot"</strong> means that on this date in the past, it was extremely hot about 3 out of every 10 years.</p>
+            <p>Each percentage shows how often that weather condition happened in the past. For example, 
+            <strong> 30% "Too Hot to Be Outside"</strong> means that on this date in the past, it was uncomfortably hot about 3 out of every 10 years.</p>
           </div>
         </div>
         <SummaryCards summary={weatherData.summary} />
+      </div>
+
+      {/* Comfort Score and Advice Section */}
+      <div className="comfort-section">
+        <ComfortScore weatherData={weatherData} temperatureUnit={temperatureUnit} />
       </div>
       
       {/* Climate Trends Alert */}
@@ -122,22 +128,22 @@ function Results({ weatherData, parameters, eventDate, selectedLocation, tempera
           <div className="help-item">
             <div className="help-number">1</div>
             <div className="help-content">
-              <strong>Check the Summary Cards</strong>
-              <p>Look at the percentages to understand the overall risk of extreme conditions.</p>
+              <strong>Check Your Comfort Score</strong>
+              <p>Look at the main score to quickly understand if it's a good day for your event.</p>
             </div>
           </div>
           <div className="help-item">
             <div className="help-number">2</div>
             <div className="help-content">
-              <strong>Review the Trends</strong>
-              <p>See if weather conditions are becoming more or less predictable over time.</p>
+              <strong>Read the Recommendations</strong>
+              <p>Follow the advice blocks for specific suggestions on timing, location, or backup plans.</p>
             </div>
           </div>
           <div className="help-item">
             <div className="help-number">3</div>
             <div className="help-content">
-              <strong>Plan Accordingly</strong>
-              <p>Use high probabilities to prepare backup plans or adjust your event timing.</p>
+              <strong>Review the Weather Cards</strong>
+              <p>See what "most people would feel" descriptions to understand real-world impact.</p>
             </div>
           </div>
           <div className="help-item">

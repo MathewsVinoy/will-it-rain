@@ -10,8 +10,6 @@ function ControlPanel({
   setEventDate,
   dateRange,
   setDateRange,
-  parameters,
-  setParameters,
   thresholds,
   setThresholds,
   temperatureUnit,
@@ -19,7 +17,6 @@ function ControlPanel({
   onAnalyze
 }) {
   const [searchQuery, setSearchQuery] = useState('')
-  const [showAdvanced, setShowAdvanced] = useState(false)
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [filteredLocations, setFilteredLocations] = useState([])
   const [isSearching, setIsSearching] = useState(false)
@@ -227,16 +224,6 @@ function ControlPanel({
     setIsSearching(false)
   }
 
-  const handleParameterChange = (param) => {
-    setParameters(prev => {
-      const updated = {
-        ...prev,
-        [param]: !prev[param]
-      }
-      console.log('Parameters updated:', updated) // Debug log
-      return updated
-    })
-  }
 
   const handleThresholdChange = (key, value) => {
     setThresholds(prev => ({
@@ -252,6 +239,7 @@ function ControlPanel({
         <div className="control-item">
           <label className="control-label">
             <span className="icon"><MapPin size={16} /></span> Location
+            <span className="control-description">Where is your event happening?</span>
           </label>
           <div className="search-container">
             <input
@@ -310,6 +298,7 @@ function ControlPanel({
         <div className="control-item">
           <label className="control-label">
             <span className="icon"><Calendar size={16} /></span> Event Date
+            <span className="control-description">When is your event?</span>
           </label>
           <input
             type="date"
@@ -324,6 +313,7 @@ function ControlPanel({
         <div className="control-item">
           <label className="control-label">
             <span className="icon"><History size={16} /></span> History
+            <span className="control-description">How many years of data to analyze?</span>
           </label>
           <select
             id="date-range"
@@ -338,127 +328,102 @@ function ControlPanel({
           </select>
         </div>
 
+        {/* Temperature Unit Section */}
+        <div className="control-item">
+          <label className="control-label">
+            <span className="icon"><CloudSun size={16} /></span> Temperature Unit
+            <span className="control-description">Choose your preferred temperature scale</span>
+          </label>
+          <div className="temp-unit-toggle">
+            <div className="toggle-buttons">
+              <button
+                type="button"
+                className={`unit-btn ${temperatureUnit === 'F' ? 'active' : ''}`}
+                onClick={() => setTemperatureUnit('F')}
+              >
+                °F
+              </button>
+              <button
+                type="button"
+                className={`unit-btn ${temperatureUnit === 'C' ? 'active' : ''}`}
+                onClick={() => setTemperatureUnit('C')}
+              >
+                °C
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Comfort Limits Section */}
+        <div className="control-item comfort-limits">
+          <label className="control-label">
+            <span className="icon"><Target size={16} /></span> 🎯 Your Comfort Limits
+            <span className="control-description">Set your personal weather comfort thresholds</span>
+          </label>
+          <div className="thresholds-grid">
+            <div className="threshold-item">
+              <label className="threshold-label">
+                Hot ({temperatureUnit === 'C' ? '°C' : '°F'})
+                <span className="threshold-help">Too hot to be comfortable</span>
+              </label>
+              <input
+                type="number"
+                value={thresholds.tempHot}
+                onChange={(e) => handleThresholdChange('tempHot', e.target.value)}
+                className="compact-input-sm"
+                placeholder={temperatureUnit === 'C' ? '30' : '86'}
+              />
+            </div>
+            <div className="threshold-item">
+              <label className="threshold-label">
+                Cold ({temperatureUnit === 'C' ? '°C' : '°F'})
+                <span className="threshold-help">Too cold to be comfortable</span>
+              </label>
+              <input
+                type="number"
+                value={thresholds.tempCold}
+                onChange={(e) => handleThresholdChange('tempCold', e.target.value)}
+                className="compact-input-sm"
+                placeholder={temperatureUnit === 'C' ? '5' : '41'}
+              />
+            </div>
+            <div className="threshold-item">
+              <label className="threshold-label">
+                Rain (inches)
+                <span className="threshold-help">Heavy rain that disrupts plans</span>
+              </label>
+              <input
+                type="number"
+                step="0.1"
+                value={thresholds.precipitation}
+                onChange={(e) => handleThresholdChange('precipitation', e.target.value)}
+                className="compact-input-sm"
+                placeholder="0.5"
+              />
+            </div>
+            <div className="threshold-item">
+              <label className="threshold-label">
+                Wind (mph)
+                <span className="threshold-help">Strong winds that are bothersome</span>
+              </label>
+              <input
+                type="number"
+                value={thresholds.wind}
+                onChange={(e) => handleThresholdChange('wind', e.target.value)}
+                className="compact-input-sm"
+                placeholder="15"
+              />
+            </div>
+          </div>
+        </div>
+
         {/* Analyze Button */}
         <div className="control-item">
           <button className="btn btn-analyze-compact" onClick={onAnalyze}>
-            <BarChart3 size={18} /> Analyze
+            <BarChart3 size={18} /> Analyze Weather
           </button>
         </div>
       </div>
-
-      {/* Advanced Settings Toggle */}
-      <div className="advanced-bar">
-        <button className="advanced-toggle-btn" onClick={() => setShowAdvanced(!showAdvanced)}>
-          <span>{showAdvanced ? '▲' : '▼'}</span> Advanced Settings
-        </button>
-      </div>
-
-      {showAdvanced && (
-        <div className="advanced-panel">
-          {/* Weather Parameters Section */}
-          <div className="advanced-group">
-            <h3>
-              <span className="icon"><CloudSun size={20} /></span> Parameters
-            </h3>
-            <div className="parameters-inline">
-              <label className="checkbox-inline">
-                <input
-                  type="checkbox"
-                  checked={parameters.temperature}
-                  onChange={() => handleParameterChange('temperature')}
-                  id="param-temperature"
-                />
-                <span>Temperature</span>
-              </label>
-              <label className="checkbox-inline">
-                <input
-                  type="checkbox"
-                  checked={parameters.precipitation}
-                  onChange={() => handleParameterChange('precipitation')}
-                  id="param-precipitation"
-                />
-                <span>Rain</span>
-              </label>
-              <label className="checkbox-inline">
-                <input
-                  type="checkbox"
-                  checked={parameters.wind}
-                  onChange={() => handleParameterChange('wind')}
-                  id="param-wind"
-                />
-                <span>Wind</span>
-              </label>
-            </div>
-            
-            {/* Temperature Unit Toggle */}
-            <div className="temp-unit-toggle">
-              <label className="unit-label">Temperature Unit:</label>
-              <div className="toggle-buttons">
-                <button
-                  type="button"
-                  className={`unit-btn ${temperatureUnit === 'F' ? 'active' : ''}`}
-                  onClick={() => setTemperatureUnit('F')}
-                >
-                  °F
-                </button>
-                <button
-                  type="button"
-                  className={`unit-btn ${temperatureUnit === 'C' ? 'active' : ''}`}
-                  onClick={() => setTemperatureUnit('C')}
-                >
-                  °C
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Thresholds Section */}
-          <div className="advanced-group">
-            <h3>
-              <span className="icon"><Target size={20} /></span> Thresholds
-            </h3>
-            <div className="thresholds-inline">
-              <div className="threshold-inline">
-                <label>Hot ({temperatureUnit === 'C' ? '°C' : '°F'})</label>
-                <input
-                  type="number"
-                  value={thresholds.tempHot}
-                  onChange={(e) => handleThresholdChange('tempHot', e.target.value)}
-                  className="compact-input-sm"
-                />
-              </div>
-              <div className="threshold-inline">
-                <label>Cold ({temperatureUnit === 'C' ? '°C' : '°F'})</label>
-                <input
-                  type="number"
-                  value={thresholds.tempCold}
-                  onChange={(e) => handleThresholdChange('tempCold', e.target.value)}
-                  className="compact-input-sm"
-                />
-              </div>
-              <div className="threshold-inline">
-                <label>Rain (in)</label>
-                <input
-                  type="number"
-                  step="0.1"
-                  value={thresholds.precipitation}
-                  onChange={(e) => handleThresholdChange('precipitation', e.target.value)}
-                  className="compact-input-sm"
-                />
-              </div>
-              <div className="threshold-inline">
-                <label>Wind (mph)</label>
-                <input
-                  type="number"
-                  value={thresholds.wind}
-                  onChange={(e) => handleThresholdChange('wind', e.target.value)}
-                  className="compact-input-sm"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

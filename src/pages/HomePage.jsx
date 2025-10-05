@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Header from '../components/Header'
+import { CloudSun } from 'lucide-react'
 import ControlPanel from '../components/ControlPanel'
 import MapView from '../components/MapView'
 import LoadingOverlay from '../components/LoadingOverlay'
@@ -11,14 +11,15 @@ function HomePage() {
   const [selectedLocation, setSelectedLocation] = useState(null)
   const [eventDate, setEventDate] = useState('')
   const [dateRange, setDateRange] = useState(10)
-  const [parameters, setParameters] = useState({
+  // All parameters are now default (always true)
+  const parameters = {
     temperature: true,
     precipitation: true,
     wind: true,
     humidity: false,
     cloudCover: false,
     airQuality: false
-  })
+  }
   const [thresholds, setThresholds] = useState({
     tempHot: 90,
     tempCold: 32,
@@ -62,40 +63,42 @@ function HomePage() {
 
   return (
     <div className="home-page">
-      <Header />
       <main className="home-content">
-        <div className="hero-section">
-          <div className="hero-content">
-            <h1 className="hero-title">Plan Your Perfect Day</h1>
-            <p className="hero-subtitle">
-              Analyze historical weather patterns to make informed decisions about your outdoor events
+        <div className="merged-header">
+          <div className="header-content">
+            <h1>
+              <span className="icon"><CloudSun size={28} /></span>
+              Will It Rain?
+            </h1>
+            <p className="tagline">
+              Plan your outdoor events with confidence using historical weather data
             </p>
           </div>
         </div>
         
-        <div className="control-section">
-          <ControlPanel
-            selectedLocation={selectedLocation}
-            setSelectedLocation={setSelectedLocation}
-            eventDate={eventDate}
-            setEventDate={setEventDate}
-            dateRange={dateRange}
-            setDateRange={setDateRange}
-            parameters={parameters}
-            setParameters={setParameters}
-            thresholds={thresholds}
-            setThresholds={setThresholds}
-            temperatureUnit={temperatureUnit}
-            setTemperatureUnit={setTemperatureUnit}
-            onAnalyze={handleAnalyze}
-          />
-        </div>
+        <div className="main-layout">
+          <div className="control-section">
+            <ControlPanel
+              selectedLocation={selectedLocation}
+              setSelectedLocation={setSelectedLocation}
+              eventDate={eventDate}
+              setEventDate={setEventDate}
+              dateRange={dateRange}
+              setDateRange={setDateRange}
+              thresholds={thresholds}
+              setThresholds={setThresholds}
+              temperatureUnit={temperatureUnit}
+              setTemperatureUnit={setTemperatureUnit}
+              onAnalyze={handleAnalyze}
+            />
+          </div>
 
-        <div className="map-section-home">
-          <MapView 
-            selectedLocation={selectedLocation}
-            setSelectedLocation={setSelectedLocation}
-          />
+          <div className="map-section-home">
+            <MapView 
+              selectedLocation={selectedLocation}
+              setSelectedLocation={setSelectedLocation}
+            />
+          </div>
         </div>
       </main>
       {loading && <LoadingOverlay />}
