@@ -14,8 +14,6 @@ function ControlPanel({
   setParameters,
   thresholds,
   setThresholds,
-  temperatureUnit,
-  setTemperatureUnit,
   onAnalyze
 }) {
   const [searchQuery, setSearchQuery] = useState('')
@@ -389,27 +387,6 @@ function ControlPanel({
                 <span>Wind</span>
               </label>
             </div>
-            
-            {/* Temperature Unit Toggle */}
-            <div className="temp-unit-toggle">
-              <label className="unit-label">Temperature Unit:</label>
-              <div className="toggle-buttons">
-                <button
-                  type="button"
-                  className={`unit-btn ${temperatureUnit === 'F' ? 'active' : ''}`}
-                  onClick={() => setTemperatureUnit('F')}
-                >
-                  °F
-                </button>
-                <button
-                  type="button"
-                  className={`unit-btn ${temperatureUnit === 'C' ? 'active' : ''}`}
-                  onClick={() => setTemperatureUnit('C')}
-                >
-                  °C
-                </button>
-              </div>
-            </div>
           </div>
 
           {/* Thresholds Section */}
@@ -419,7 +396,7 @@ function ControlPanel({
             </h3>
             <div className="thresholds-inline">
               <div className="threshold-inline">
-                <label>Hot ({temperatureUnit === 'C' ? '°C' : '°F'})</label>
+                <label>Hot (°F)</label>
                 <input
                   type="number"
                   value={thresholds.tempHot}
@@ -428,7 +405,7 @@ function ControlPanel({
                 />
               </div>
               <div className="threshold-inline">
-                <label>Cold ({temperatureUnit === 'C' ? '°C' : '°F'})</label>
+                <label>Cold (°F)</label>
                 <input
                   type="number"
                   value={thresholds.tempCold}

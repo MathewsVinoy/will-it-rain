@@ -506,59 +506,6 @@ input[type="number"]:focus,
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
-}
-
-/* Temperature Unit Toggle */
-.temp-unit-toggle {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 0.75rem;
-}
-
-.temp-unit-toggle .unit-label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  white-space: nowrap;
-}
-
-.toggle-buttons {
-  display: flex;
-  gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 0.25rem;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.unit-btn {
-  padding: 0.5rem 1.25rem;
-  border: none;
-  background: transparent;
-  color: var(--text-secondary);
-  font-size: 0.938rem;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 60px;
-}
-
-.unit-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-primary);
-}
-
-.unit-btn.active {
-  background: var(--primary-color);
-  color: white;
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
-}
-
-.unit-btn.active:hover {
-  background: var(--primary-hover);
 }
 
 .checkbox-inline {
@@ -815,20 +762,6 @@ input[type="number"]:focus,
   .checkbox-inline {
     width: 100%;
     padding: 0.875rem 1rem;
-  }
-  
-  .temp-unit-toggle {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .toggle-buttons {
-    width: 100%;
-  }
-  
-  .unit-btn {
-    flex: 1;
   }
   
   .advanced-panel {

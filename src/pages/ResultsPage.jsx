@@ -8,7 +8,7 @@ import './ResultsPage.css'
 function ResultsPage() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { weatherData, selectedLocation, eventDate, parameters, temperatureUnit = 'F' } = location.state || {}
+  const { weatherData, selectedLocation, eventDate, parameters } = location.state || {}
 
   // Redirect to home if no data
   if (!weatherData) {
@@ -37,7 +37,6 @@ function ResultsPage() {
             parameters={parameters}
             eventDate={eventDate}
             selectedLocation={selectedLocation}
-            temperatureUnit={temperatureUnit}
           />
         </div>
       </main>
