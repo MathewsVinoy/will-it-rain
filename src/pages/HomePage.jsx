@@ -25,6 +25,7 @@ function HomePage() {
     precipitation: 0.5,
     wind: 20
   })
+  const [temperatureUnit, setTemperatureUnit] = useState('F') // 'F' or 'C'
   const [loading, setLoading] = useState(false)
 
   const handleAnalyze = async () => {
@@ -51,7 +52,8 @@ function HomePage() {
           weatherData: mockData,
           selectedLocation,
           eventDate,
-          parameters
+          parameters,
+          temperatureUnit
         } 
       })
       setLoading(false)
@@ -83,6 +85,8 @@ function HomePage() {
             setParameters={setParameters}
             thresholds={thresholds}
             setThresholds={setThresholds}
+            temperatureUnit={temperatureUnit}
+            setTemperatureUnit={setTemperatureUnit}
             onAnalyze={handleAnalyze}
           />
         </div>

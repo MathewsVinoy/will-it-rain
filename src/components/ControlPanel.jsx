@@ -14,6 +14,8 @@ function ControlPanel({
   setParameters,
   thresholds,
   setThresholds,
+  temperatureUnit,
+  setTemperatureUnit,
   onAnalyze
 }) {
   const [searchQuery, setSearchQuery] = useState('')
@@ -226,10 +228,14 @@ function ControlPanel({
   }
 
   const handleParameterChange = (param) => {
-    setParameters(prev => ({
-      ...prev,
-      [param]: !prev[param]
-    }))
+    setParameters(prev => {
+      const updated = {
+        ...prev,
+        [param]: !prev[param]
+      }
+      console.log('Parameters updated:', updated) // Debug log
+      return updated
+    })
   }
 
   const handleThresholdChange = (key, value) => {
@@ -360,6 +366,7 @@ function ControlPanel({
                   type="checkbox"
                   checked={parameters.temperature}
                   onChange={() => handleParameterChange('temperature')}
+                  id="param-temperature"
                 />
                 <span>Temperature</span>
               </label>
@@ -368,6 +375,7 @@ function ControlPanel({
                   type="checkbox"
                   checked={parameters.precipitation}
                   onChange={() => handleParameterChange('precipitation')}
+                  id="param-precipitation"
                 />
                 <span>Rain</span>
               </label>
@@ -376,9 +384,31 @@ function ControlPanel({
                   type="checkbox"
                   checked={parameters.wind}
                   onChange={() => handleParameterChange('wind')}
+                  id="param-wind"
                 />
                 <span>Wind</span>
               </label>
+            </div>
+            
+            {/* Temperature Unit Toggle */}
+            <div className="temp-unit-toggle">
+              <label className="unit-label">Temperature Unit:</label>
+              <div className="toggle-buttons">
+                <button
+                  type="button"
+                  className={`unit-btn ${temperatureUnit === 'F' ? 'active' : ''}`}
+                  onClick={() => setTemperatureUnit('F')}
+                >
+                  °F
+                </button>
+                <button
+                  type="button"
+                  className={`unit-btn ${temperatureUnit === 'C' ? 'active' : ''}`}
+                  onClick={() => setTemperatureUnit('C')}
+                >
+                  °C
+                </button>
+              </div>
             </div>
           </div>
 
@@ -389,7 +419,7 @@ function ControlPanel({
             </h3>
             <div className="thresholds-inline">
               <div className="threshold-inline">
-                <label>Hot (°F)</label>
+                <label>Hot ({temperatureUnit === 'C' ? '°C' : '°F'})</label>
                 <input
                   type="number"
                   value={thresholds.tempHot}
@@ -398,7 +428,7 @@ function ControlPanel({
                 />
               </div>
               <div className="threshold-inline">
-                <label>Cold (°F)</label>
+                <label>Cold ({temperatureUnit === 'C' ? '°C' : '°F'})</label>
                 <input
                   type="number"
                   value={thresholds.tempCold}

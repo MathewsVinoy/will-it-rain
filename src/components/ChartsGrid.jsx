@@ -11,6 +11,7 @@ import {
   ArcElement
 } from 'chart.js'
 import { Line, Bar, Pie } from 'react-chartjs-2'
+import { fahrenheitToCelsius, getUnitSymbol } from '../utils/temperature-utils'
 import './ChartsGrid.css'
 
 ChartJS.register(
@@ -25,7 +26,21 @@ ChartJS.register(
   ArcElement
 )
 
-function ChartsGrid({ weatherData, parameters }) {
+function ChartsGrid({ weatherData, parameters, temperatureUnit = 'F' }) {
+  // Debug logging
+  console.log('ChartsGrid rendered with parameters:', parameters)
+  console.log('Temperature unit:', temperatureUnit)
+  
+  // Helper function to convert temperature if needed
+  const convertTemp = (temp) => {
+    if (temperatureUnit === 'C') {
+      return fahrenheitToCelsius(temp)
+    }
+    return temp
+  }
+  
+  const tempUnit = getUnitSymbol(temperatureUnit)
+  
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -41,8 +56,8 @@ function ChartsGrid({ weatherData, parameters }) {
     labels: weatherData.temperature.historical.map(d => d.year),
     datasets: [
       {
-        label: 'Temperature (°F)',
-        data: weatherData.temperature.historical.map(d => d.value),
+        label: `Temperature (${tempUnit})`,
+        data: weatherData.temperature.historical.map(d => convertTemp(d.value)),
         borderColor: 'rgb(239, 68, 68)',
         backgroundColor: 'rgba(239, 68, 68, 0.1)',
         tension: 0.4
@@ -151,8 +166,8 @@ function ChartsGrid({ weatherData, parameters }) {
               <Line data={tempHistoricalData} options={chartOptions} />
             </div>
             <div className="chart-stats">
-              <p><strong>Avg High:</strong> {weatherData.temperature.averages.high}°F</p>
-              <p><strong>Avg Low:</strong> {weatherData.temperature.averages.low}°F</p>
+              <p><strong>Avg High:</strong> {convertTemp(weatherData.temperature.averages.high).toFixed(1)}{tempUnit}</p>
+              <p><strong>Avg Low:</strong> {convertTemp(weatherData.temperature.averages.low).toFixed(1)}{tempUnit}</p>
             </div>
           </div>
 
