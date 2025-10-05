@@ -1,11 +1,11 @@
-import { CloudSun, TrendingUp, BookOpen, Info } from 'lucide-react'
+import { CloudSun, TrendingUp, Info, BookOpen, Lightbulb } from 'lucide-react'
 import SummaryCards from './SummaryCards'
 import ChartsGrid from './ChartsGrid'
 import ExportButtons from './ExportButtons'
 import ComfortScore from './ComfortScore'
 import './Results.css'
 
-function Results({ weatherData, parameters, eventDate, selectedLocation, temperatureUnit }) {
+function Results({ weatherData, parameters, eventDate, selectedLocation, temperatureUnit = 'F' }) {
   if (!weatherData) {
     return (
       <div className="results-container">
@@ -77,14 +77,37 @@ function Results({ weatherData, parameters, eventDate, selectedLocation, tempera
         <ComfortScore weatherData={weatherData} temperatureUnit={temperatureUnit} />
       </div>
       
+      {/* Climate Trends Alert */}
       <div className="trends-alert">
         <div className="alert alert-info">
           <span className="icon"><TrendingUp size={24} /></span>
           <div>
             <strong>Climate Trends:</strong> Temperature has increased by{' '}
-            <strong>{weatherData.trends.temperatureIncrease}°F</strong> over the past{' '}
+            <strong>{weatherData.trends.temperatureIncrease}{temperatureUnit === 'C' ? '°C' : '°F'}</strong> over the past{' '}
             {weatherData.dateRange} years. Extreme weather events have increased by{' '}
             <strong>{weatherData.trends.extremeEventIncrease}%</strong>.
+          </div>
+        </div>
+      </div>
+
+      {/* Charts Introduction */}
+      <div className="info-section charts-intro">
+        <div className="info-header">
+          <span className="info-icon"><Lightbulb size={24} /></span>
+          <h3>Detailed Historical Analysis</h3>
+        </div>
+        <div className="chart-guides">
+          <div className="guide-item">
+            <strong>📈 Trend Charts</strong>
+            <p>Show how weather patterns have changed year by year. An upward trend means conditions are getting more extreme.</p>
+          </div>
+          <div className="guide-item">
+            <strong>📊 Probability Charts</strong>
+            <p>Break down the chances of different conditions. Higher bars mean that condition is more likely to occur.</p>
+          </div>
+          <div className="guide-item">
+            <strong>💡 Planning Tip</strong>
+            <p>If a probability is above 50%, plan for that condition. Below 30% is relatively unlikely but still possible.</p>
           </div>
         </div>
       </div>
@@ -92,6 +115,7 @@ function Results({ weatherData, parameters, eventDate, selectedLocation, tempera
       <ChartsGrid 
         weatherData={weatherData}
         parameters={parameters}
+        temperatureUnit={temperatureUnit}
       />
 
       {/* Bottom Help Section */}
