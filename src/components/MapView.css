@@ -1,9 +1,12 @@
 .map-container {
   background: var(--card-bg);
-  border-radius: 12px;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  height: 500px;
+  box-shadow: none;
+  height: 100%;
+  width: 100%;
+  border: none;
+  transition: all 0.3s ease;
 }
 
 .marker-popup {

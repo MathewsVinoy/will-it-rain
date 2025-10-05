@@ -25,13 +25,46 @@ A React-based weather conditions planner that helps you assess the likelihood of
    npm install
    ```
 
-3. **Start the development server:**
+3. **(Optional) Configure API keys:**
+   ```bash
+   cp .env.example .env
+   # Edit .env and add your API keys (see API Keys section below)
+   ```
+
+4. **Start the development server:**
    ```bash
    npm run dev
    ```
 
-4. **Open your browser:**
+5. **Open your browser:**
    Navigate to `http://localhost:3000`
+
+## API Keys (Optional)
+
+The app works out-of-the-box without any API keys using free geocoding services. However, you can optionally add API keys for enhanced functionality:
+
+### Geocoding APIs
+
+**Option 1: OpenCage Geocoder (Recommended)**
+- Sign up: https://opencagedata.com/
+- Free tier: 2,500 requests/day
+- Add to `.env`: `VITE_OPENCAGE_API_KEY=your_key`
+
+The app automatically falls back to these free services:
+- **Nominatim** (OpenStreetMap) - No key required
+- **Photon** (Komoot) - No key required
+
+### Weather Data APIs (For Production)
+
+**NASA POWER API**
+- Sign up: https://api.nasa.gov/
+- Free with registration
+- Add to `.env`: `VITE_NASA_API_KEY=your_key`
+
+**OpenWeatherMap API**
+- Sign up: https://openweathermap.org/api
+- Free tier available
+- Add to `.env`: `VITE_OPENWEATHER_API_KEY=your_key`
 
 ## Usage
 

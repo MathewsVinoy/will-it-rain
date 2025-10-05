@@ -1,3 +1,4 @@
+import { CloudSun } from 'lucide-react'
 import './Header.css'
 
 function Header() {
@@ -5,7 +6,7 @@ function Header() {
     <header className="app-header">
       <div className="header-content">
         <h1>
-          <span className="icon">🌤️</span>
+          <span className="icon"><CloudSun size={32} /></span>
           Will It Rain?
         </h1>
         <p className="tagline">

@@ -52,19 +52,21 @@ function App() {
     <div className="app-container">
       <Header />
       <main className="main-content">
-        <ControlPanel
-          selectedLocation={selectedLocation}
-          setSelectedLocation={setSelectedLocation}
-          eventDate={eventDate}
-          setEventDate={setEventDate}
-          dateRange={dateRange}
-          setDateRange={setDateRange}
-          parameters={parameters}
-          setParameters={setParameters}
-          thresholds={thresholds}
-          setThresholds={setThresholds}
-          onAnalyze={handleAnalyze}
-        />
+        <div className="control-bar">
+          <ControlPanel
+            selectedLocation={selectedLocation}
+            setSelectedLocation={setSelectedLocation}
+            eventDate={eventDate}
+            setEventDate={setEventDate}
+            dateRange={dateRange}
+            setDateRange={setDateRange}
+            parameters={parameters}
+            setParameters={setParameters}
+            thresholds={thresholds}
+            setThresholds={setThresholds}
+            onAnalyze={handleAnalyze}
+          />
+        </div>
         <Dashboard
           selectedLocation={selectedLocation}
           setSelectedLocation={setSelectedLocation}

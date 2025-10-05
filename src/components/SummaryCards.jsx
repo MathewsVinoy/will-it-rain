@@ -1,3 +1,4 @@
+import { Flame, Snowflake, Droplets, Wind, Frown } from 'lucide-react'
 import './SummaryCards.css'
 
 function SummaryCards({ summary }) {
@@ -5,35 +6,35 @@ function SummaryCards({ summary }) {
     {
       key: 'veryHot',
       label: 'Very Hot',
-      icon: '🔥',
+      icon: <Flame size={48} />,
       description: 'Above threshold',
       className: 'hot'
     },
     {
       key: 'veryCold',
       label: 'Very Cold',
-      icon: '❄️',
+      icon: <Snowflake size={48} />,
       description: 'Below threshold',
       className: 'cold'
     },
     {
       key: 'veryWet',
       label: 'Very Wet',
-      icon: '💧',
+      icon: <Droplets size={48} />,
       description: 'Heavy precipitation',
       className: 'wet'
     },
     {
       key: 'veryWindy',
       label: 'Very Windy',
-      icon: '💨',
+      icon: <Wind size={48} />,
       description: 'High wind speeds',
       className: 'windy'
     },
     {
       key: 'uncomfortable',
       label: 'Uncomfortable',
-      icon: '😰',
+      icon: <Frown size={48} />,
       description: 'Combined factors',
       className: 'uncomfortable'
     }

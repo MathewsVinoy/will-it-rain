@@ -1,17 +1,39 @@
 :root {
-  --primary-color: #3b82f6;
+  /* Sophisticated Dark Theme - Inspired by Modern Weather UI */
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
   --secondary-color: #8b5cf6;
+  --accent-color: #10b981;
   --success-color: #10b981;
   --warning-color: #f59e0b;
   --danger-color: #ef4444;
-  --dark-bg: #1e293b;
-  --light-bg: #f8fafc;
-  --card-bg: #ffffff;
-  --text-primary: #0f172a;
-  --text-secondary: #64748b;
-  --border-color: #e2e8f0;
-  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  /* Premium Dark Backgrounds */
+  --bg-primary: #1a1d29;
+  --bg-secondary: #23273a;
+  --bg-tertiary: #2d3142;
+  --card-bg: rgba(35, 39, 58, 0.6);
+  --card-hover: rgba(45, 49, 66, 0.8);
+  
+  /* Text Colors with Better Contrast */
+  --text-primary: #ffffff;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  
+  /* Subtle Borders */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.12);
+  
+  /* Soft Shadows */
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.4), 0 10px 20px -8px rgba(0, 0, 0, 0.3);
+  
+  /* Modern Gradients */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --gradient-card: linear-gradient(135deg, rgba(35, 39, 58, 0.8) 0%, rgba(45, 49, 66, 0.6) 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
 }
 
 * {
@@ -26,6 +48,10 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-primary);
+  background-image: radial-gradient(at 20% 30%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                    radial-gradient(at 80% 70%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+  background-attachment: fixed;
 }
 
 #root {
@@ -40,4 +66,46 @@ button {
 input,
 select {
   font-family: inherit;
+}
+
+/* Organizational Utilities */
+.section-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 2rem 0;
+}
+
+.content-group {
+  margin-bottom: 2rem;
+}
+
+.content-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Better scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-hover) var(--bg-secondary);
 }

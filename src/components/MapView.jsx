@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet'
 import L from 'leaflet'
+import { reverseGeocode } from '../utils/geocoding'
 import 'leaflet/dist/leaflet.css'
 import './MapView.css'
 
@@ -14,12 +15,33 @@ L.Icon.Default.mergeOptions({
 
 function MapClickHandler({ onLocationSelect }) {
   useMapEvents({
-    click: (e) => {
+    click: async (e) => {
+      const lat = e.latlng.lat
+      const lng = e.latlng.lng
+      
+      // Set location immediately with coordinates
       onLocationSelect({
-        lat: e.latlng.lat,
-        lng: e.latlng.lng,
-        name: `Location: ${e.latlng.lat.toFixed(4)}, ${e.latlng.lng.toFixed(4)}`
+        lat,
+        lng,
+        name: `Loading...`
       })
+      
+      // Then try to get the actual place name
+      try {
+        const name = await reverseGeocode(lat, lng)
+        onLocationSelect({
+          lat,
+          lng,
+          name
+        })
+      } catch (error) {
+        console.error('Reverse geocoding failed:', error)
+        onLocationSelect({
+          lat,
+          lng,
+          name: `Location: ${lat.toFixed(4)}, ${lng.toFixed(4)}`
+        })
+      }
     }
   })
   return null

@@ -1,3 +1,4 @@
+import { CloudSun, TrendingUp } from 'lucide-react'
 import SummaryCards from './SummaryCards'
 import ChartsGrid from './ChartsGrid'
 import ExportButtons from './ExportButtons'
@@ -8,12 +9,22 @@ function Results({ weatherData, parameters, eventDate, selectedLocation }) {
     return (
       <div className="results-container">
         <div className="welcome-message">
-          <div className="icon">ℹ️</div>
-          <h3>Welcome to Will It Rain?</h3>
-          <p>
-            Select a location on the map or search for a place, choose your event date,
-            and click "Analyze Weather" to see historical weather patterns and probabilities.
-          </p>
+          <div className="icon"><CloudSun size={72} /></div>
+          <h3>Plan Your Perfect Day!</h3>
+          <div className="welcome-steps">
+            <div className="step">
+              <span className="step-number">1</span>
+              <p>Pick a location</p>
+            </div>
+            <div className="step">
+              <span className="step-number">2</span>
+              <p>Choose your date</p>
+            </div>
+            <div className="step">
+              <span className="step-number">3</span>
+              <p>Click "Check Weather"</p>
+            </div>
+          </div>
         </div>
       </div>
     )
@@ -39,7 +50,7 @@ function Results({ weatherData, parameters, eventDate, selectedLocation }) {
       
       <div className="trends-alert">
         <div className="alert alert-info">
-          <span className="icon">📈</span>
+          <span className="icon"><TrendingUp size={24} /></span>
           <div>
             <strong>Climate Trends:</strong> Temperature has increased by{' '}
             <strong>{weatherData.trends.temperatureIncrease}°F</strong> over the past{' '}
