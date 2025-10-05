@@ -1,0 +1,272 @@
+.comfort-score-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Main Comfort Score Card */
+.comfort-score-card {
+  background: rgba(35, 39, 58, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 2rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.comfort-score-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.comfort-score-header h3 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.comfort-score-value {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.comfort-score-value.green {
+  color: #10b981;
+}
+
+.comfort-score-value.yellow {
+  color: #f59e0b;
+}
+
+.comfort-score-value.orange {
+  color: #f97316;
+}
+
+.comfort-score-value.red {
+  color: #ef4444;
+}
+
+.comfort-level {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.comfort-level.green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.comfort-level.yellow {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.comfort-level.orange {
+  background: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.comfort-level.red {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.comfort-description {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Advice Section */
+.advice-section {
+  background: rgba(35, 39, 58, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.advice-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.advice-header h4 {
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.advice-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.advice-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.advice-item.safe {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.advice-item.time {
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.advice-item.location {
+  background: rgba(14, 165, 233, 0.1);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+.advice-item.backup {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.advice-item.date {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.advice-icon {
+  font-size: 1.25rem;
+}
+
+.advice-text {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Safety Overview */
+.safety-overview {
+  background: rgba(35, 39, 58, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.safety-overview h4 {
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+}
+
+.safety-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.safety-item {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.safety-item.safe {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.safety-item.risky {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.safety-item.bad {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.safety-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.safety-label {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.safety-percentage {
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .comfort-score-container {
+    gap: 1rem;
+  }
+  
+  .comfort-score-card {
+    padding: 1.5rem;
+  }
+  
+  .comfort-score-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .comfort-score-value {
+    font-size: 2.5rem;
+  }
+  
+  .safety-stats {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .advice-section,
+  .safety-overview {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .comfort-score-card {
+    padding: 1.25rem;
+  }
+  
+  .comfort-score-value {
+    font-size: 2.25rem;
+  }
+  
+  .comfort-level {
+    font-size: 1.1rem;
+    padding: 0.625rem 1.25rem;
+  }
+}

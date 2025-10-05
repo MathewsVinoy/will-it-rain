@@ -1,10 +1,11 @@
-import { CloudSun, TrendingUp } from 'lucide-react'
+import { CloudSun, TrendingUp, BookOpen, Info } from 'lucide-react'
 import SummaryCards from './SummaryCards'
 import ChartsGrid from './ChartsGrid'
 import ExportButtons from './ExportButtons'
+import ComfortScore from './ComfortScore'
 import './Results.css'
 
-function Results({ weatherData, parameters, eventDate, selectedLocation }) {
+function Results({ weatherData, parameters, eventDate, selectedLocation, temperatureUnit }) {
   if (!weatherData) {
     return (
       <div className="results-container">
@@ -46,7 +47,35 @@ function Results({ weatherData, parameters, eventDate, selectedLocation }) {
         <ExportButtons weatherData={weatherData} />
       </div>
 
-      <SummaryCards summary={weatherData.summary} />
+      {/* Introduction Section */}
+      <div className="info-section intro-section">
+        <div className="info-header">
+          <span className="info-icon"><BookOpen size={24} /></span>
+          <h3>Understanding Your Weather Report</h3>
+        </div>
+        <p className="info-text">
+          This analysis shows what the weather was like on this date in the past, based on <strong>{weatherData.dateRange} years</strong> of historical data 
+          for the same date and location. The numbers below show how often different weather conditions happened, so you can plan accordingly.
+        </p>
+      </div>
+
+      {/* Probability Cards Section */}
+      <div className="section-with-description">
+        <div className="section-description">
+          <span className="section-icon"><Info size={20} /></span>
+          <div>
+            <h4>What Do These Numbers Mean?</h4>
+            <p>Each percentage shows how often that weather condition happened in the past. For example, 
+            <strong> 30% "Too Hot to Be Outside"</strong> means that on this date in the past, it was uncomfortably hot about 3 out of every 10 years.</p>
+          </div>
+        </div>
+        <SummaryCards summary={weatherData.summary} />
+      </div>
+
+      {/* Comfort Score and Advice Section */}
+      <div className="comfort-section">
+        <ComfortScore weatherData={weatherData} temperatureUnit={temperatureUnit} />
+      </div>
       
       <div className="trends-alert">
         <div className="alert alert-info">
@@ -64,6 +93,44 @@ function Results({ weatherData, parameters, eventDate, selectedLocation }) {
         weatherData={weatherData}
         parameters={parameters}
       />
+
+      {/* Bottom Help Section */}
+      <div className="info-section help-section">
+        <div className="info-header">
+          <span className="info-icon"><Info size={24} /></span>
+          <h3>How to Use This Information</h3>
+        </div>
+        <div className="help-grid">
+          <div className="help-item">
+            <div className="help-number">1</div>
+            <div className="help-content">
+              <strong>Check Your Comfort Score</strong>
+              <p>Look at the main score to quickly understand if it's a good day for your event.</p>
+            </div>
+          </div>
+          <div className="help-item">
+            <div className="help-number">2</div>
+            <div className="help-content">
+              <strong>Read the Recommendations</strong>
+              <p>Follow the advice blocks for specific suggestions on timing, location, or backup plans.</p>
+            </div>
+          </div>
+          <div className="help-item">
+            <div className="help-number">3</div>
+            <div className="help-content">
+              <strong>Review the Weather Cards</strong>
+              <p>See what "most people would feel" descriptions to understand real-world impact.</p>
+            </div>
+          </div>
+          <div className="help-item">
+            <div className="help-number">4</div>
+            <div className="help-content">
+              <strong>Remember</strong>
+              <p>Weather is unpredictable! These are probabilities based on history, not guarantees.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
