@@ -5,8 +5,15 @@
   box-shadow: none;
   height: 100%;
   width: 100%;
+  min-height: 400px;
   border: none;
   transition: all 0.3s ease;
+  position: relative;
+}
+
+.map-container .leaflet-container {
+  height: 100% !important;
+  width: 100% !important;
 }
 
 .marker-popup {
@@ -24,8 +31,50 @@
   font-size: 0.9rem;
 }
 
+.map-container .leaflet-control-zoom {
+  border: 2px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.map-container .leaflet-control-zoom a {
+  background: rgba(35, 39, 58, 0.9) !important;
+  backdrop-filter: blur(10px);
+  color: white !important;
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.map-container .leaflet-control-zoom a:hover {
+  background: rgba(45, 49, 66, 0.95) !important;
+}
+
+@media (max-width: 768px) {
+  .map-container .leaflet-control-zoom a {
+    width: 40px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    font-size: 1.125rem !important;
+  }
+}
+
 @media (max-width: 640px) {
   .map-container {
-    height: 300px;
+    height: 320px;
+  }
+  
+  .map-container .leaflet-control-zoom a {
+    width: 44px !important;
+    height: 44px !important;
+    line-height: 44px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-container {
+    height: 280px;
   }
 }

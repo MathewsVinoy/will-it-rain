@@ -151,19 +151,99 @@
   .results-container {
     padding: 1.75rem 1.5rem;
   }
+  
+  .results-header h2 {
+    font-size: 1.375rem;
+  }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .results-container {
-    padding: 1.5rem 1rem;
+    padding: 1.5rem 1.25rem;
   }
   
   .results-header {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
     margin-bottom: 1.5rem;
   }
   
   .results-header h2 {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
+  }
+  
+  .welcome-message {
+    padding: 3rem 1.5rem;
+  }
+  
+  .welcome-message h3 {
+    font-size: 1.875rem;
+  }
+  
+  .welcome-steps {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .results-container {
+    padding: 1.25rem 1rem;
+  }
+  
+  .results-header h2 {
+    font-size: 1.125rem;
+  }
+  
+  .results-info {
+    font-size: 0.875rem;
+  }
+  
+  .welcome-message {
+    padding: 2.5rem 1.25rem;
+  }
+  
+  .welcome-message h3 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .welcome-message .icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .step-number {
+    width: 48px;
+    height: 48px;
+    font-size: 1.375rem;
+  }
+  
+  .step p {
+    font-size: 1rem;
+  }
+  
+  .alert {
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .results-container {
+    padding: 1rem 0.875rem;
+  }
+  
+  .welcome-message {
+    padding: 2rem 1rem;
+  }
+  
+  .welcome-message h3 {
+    font-size: 1.375rem;
+  }
+  
+  .welcome-steps {
+    flex-direction: column;
+    gap: 1.25rem;
   }
 }
